@@ -29,9 +29,11 @@ int hashFunction(char* text) {
   return address;
 }
 
-int add(char* text, int token) {
+int addHash(char* text, int token) {
   if(inicializado==0)
     return -1;
+  if(getHash(text)>0)
+    return;
   int address = hashFunction(text);
   HASHCELL* new = (HASHCELL*) malloc(sizeof(HASHCELL));
   new->token = token;
@@ -46,7 +48,7 @@ int add(char* text, int token) {
   *position = new;
 }
 
-int get(char* text){
+int getHash(char* text){
   if(inicializado==0)
     return -1;
   int address = hashFunction(text);

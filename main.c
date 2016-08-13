@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 int main() {
-  init();
+  initMe();
   add("oi",15);
   add("oi2",16);
   printf("%d", get("oi"));
