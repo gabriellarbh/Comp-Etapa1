@@ -11,13 +11,14 @@ typedef struct hashcell {
 int inicializado = 0;
 HASHCELL* table[HASH_SIZE];
 
-void init(){
+int initMe(){
   if(inicializado!=0)
     return;
   for(int i=0;i<HASH_SIZE;i++) {
     table[i]=NULL;
   }
   inicializado=1;
+  return 0;
 }
 
 int hashFunction(char* text) {
