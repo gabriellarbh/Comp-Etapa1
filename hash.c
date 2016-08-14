@@ -11,14 +11,14 @@ typedef struct hashcell {
 int inicializado = 0;
 HASHCELL* table[HASH_SIZE];
 
-int initMe(){
+void initMe(void){
   if(inicializado!=0)
     return;
   for(int i=0;i<HASH_SIZE;i++) {
     table[i]=NULL;
   }
   inicializado=1;
-  return 0;
+  return;
 }
 
 int hashFunction(char* text) {
@@ -33,7 +33,7 @@ int addHash(char* text, int token) {
   if(inicializado==0)
     return -1;
   if(getHash(text)>0)
-    return;
+    return -1;
   int address = hashFunction(text);
   HASHCELL* new = (HASHCELL*) malloc(sizeof(HASHCELL));
   new->token = token;
@@ -46,6 +46,7 @@ int addHash(char* text, int token) {
     position = &((*position)->next);
   }
   *position = new;
+  return 1;
 }
 
 int getHash(char* text){

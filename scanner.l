@@ -1,10 +1,13 @@
 %{
-#include "tokens.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "tokens.h"
+#include "hash.c"
 
 int running = 0;
 int lines = 0;
+char *yylval;
 
 int isRunning(void);
 int getLineNumber(void);
@@ -36,22 +39,35 @@ FALSE 				{return LIT_FALSE;}
 
 
 
-[A-Za-z_][A-Za-z_0-9]*				{add(yytext, TK_IDENTIFIER);return TK_IDENTIFIER;}
-[0-9]*								{add(yytext, LIT_INTEGER);return LIT_INTEGER;}
-\'\'								{add(yytext, LIT_CHAR);return LIT_CHAR;} 
-\"[A-Za-z_0-9]+\"					{add(yytext, LIT_STRING);return LIT_STRING;}
+[A-Za-z_][A-Za-z_0-9]*				{addHash(yytext, TK_IDENTIFIER);return TK_IDENTIFIER;}
+[0-9]*								{addHash(yytext, LIT_INTEGER);return LIT_INTEGER;}
+\'\'								{addHash(yytext, LIT_CHAR);return LIT_CHAR;} 
 [,;:\(\)\[\]\{\}+\-*/<>=!&$]   		{return yytext[0];}	
 [ \t\f\v]				
 \n 									{lines++;}
 "//".*				
 "/*"								{BEGIN(COMENTARIO);}
-.									{return TOKEN_ERROR;}
 
+\"[^"\n]*["\n] {
+               yylval = strdup(yytext+1);
+               if (yylval[yyleng-2] != '"')
+                   return TOKEN_ERROR;
+               else
+                   yylval[yyleng-2] = 0;
+               addHash(yylval, LIT_STRING);
+               return LIT_STRING;
+}
+.									{return TOKEN_ERROR;}
 
 <COMENTARIO>"*/"	{BEGIN(INITIAL);}
 <COMENTARIO>\n 		{lines++;} 
 
+
+
+
 %%
+#include "main_Gabi.c"
+
 int yywrap(){
 	running = 0;
 	return 1;
@@ -63,10 +79,6 @@ int isRunning(void){
 
 int getLineNumber(void){
 	return lines;
-}
-
-void initMe(void){
-	init();
 }
 
 

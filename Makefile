@@ -9,8 +9,9 @@
 
 etapa1: lex.yy.c
 	gcc -o etapa1 lex.yy.c
-lex.yy.c: scanner.l
-	lex scanner.l
+
+lex.yy.c: scanner.l hash.c hash.h
+	lex scanner.l 
 
 clean:
-	rm lex.yy.c etapa1
+	rm *.yy.c etapa1
