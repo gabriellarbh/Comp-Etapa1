@@ -39,14 +39,14 @@ FALSE 				{return LIT_FALSE;}
 
 
 
-[A-Za-z_][A-Za-z_0-9]*				{addHash(yytext, TK_IDENTIFIER);return TK_IDENTIFIER;}
-[0-9]*								{addHash(yytext, LIT_INTEGER);return LIT_INTEGER;}
-\'\'								{addHash(yytext, LIT_CHAR);return LIT_CHAR;} 
-[,;:\(\)\[\]\{\}+\-*/<>=!&$]   		{return yytext[0];}	
+[A-Za-z_][A-Za-z_0-9]*		{addHash(yytext, TK_IDENTIFIER);return TK_IDENTIFIER;}
+[0-9]*				{addHash(yytext, LIT_INTEGER);return LIT_INTEGER;}
+\'\'				{addHash(yytext, LIT_CHAR);return LIT_CHAR;} 
+[,;:\(\)\[\]\{\}+\-*/<>=!&$]   	{return yytext[0];}	
 [ \t\f\v]				
-\n 									{lines++;}
+\n 				{lines++;}
 "//".*				
-"/*"								{BEGIN(COMENTARIO);}
+"/*"				{BEGIN(COMENTARIO);}
 
 \"[^"\n]*["\n] {
                yylval = strdup(yytext+1);
@@ -57,7 +57,7 @@ FALSE 				{return LIT_FALSE;}
                addHash(yylval, LIT_STRING);
                return LIT_STRING;
 }
-.									{return TOKEN_ERROR;}
+.				{return TOKEN_ERROR;}
 
 <COMENTARIO>"*/"	{BEGIN(INITIAL);}
 <COMENTARIO>\n 		{lines++;} 
@@ -66,7 +66,7 @@ FALSE 				{return LIT_FALSE;}
 
 
 %%
-#include "main_Gabi.c"
+#include "main.c"
 
 int yywrap(){
 	running = 0;
