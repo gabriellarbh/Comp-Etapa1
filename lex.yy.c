@@ -514,7 +514,7 @@ char *yytext;
 #include "tokens.h"
 #include "hash.c"
 
-int running = 0;
+int running = 1;
 int lines = 0;
 char *yylval;
 
