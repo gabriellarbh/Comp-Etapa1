@@ -62,7 +62,7 @@ FALSE 				{return LIT_FALSE;}
 
 <COMENTARIO>"*/"	{BEGIN(INITIAL);}
 <COMENTARIO>\n 		{lines++;} 
-
+<COMENTARIO>.*	
 
 
 

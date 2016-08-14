@@ -15,5 +15,9 @@ int !yd;
 "ahfduish"
 
 10
+//isso eh comentario
 
+/*isso eh comentario multilinha
+
+dsd*/
 int 9;
