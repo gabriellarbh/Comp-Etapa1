@@ -11,6 +11,7 @@ char *yylval;
 
 int isRunning(void);
 int getLineNumber(void);
+void initMe(void);
 %}
 
 
@@ -80,5 +81,7 @@ int isRunning(void){
 int getLineNumber(void){
 	return lines;
 }
-
+void initMe(void) {
+    initHash();
+}
 

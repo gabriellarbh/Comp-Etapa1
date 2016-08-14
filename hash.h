@@ -5,4 +5,4 @@ int addHash(char* text, int token);
 //returns -1 if hash not initialized
 //and -2 if no record could be found
 int getHash(char* text);
-void initMe(void);
+void initHash(void);

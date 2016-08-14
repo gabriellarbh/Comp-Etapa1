@@ -11,7 +11,7 @@ typedef struct hashcell {
 int inicializado = 0;
 HASHCELL* table[HASH_SIZE];
 
-void initMe(void){
+void initHash(void){
   if(inicializado!=0)
     return;
   for(int i=0;i<HASH_SIZE;i++) {
@@ -54,6 +54,8 @@ int getHash(char* text){
     return -1;
   int address = hashFunction(text);
   HASHCELL* position = table[address];
+  if(position==NULL)
+      return -2;
   while(strcmp(position->text, text)!=0){
     if(position->next == NULL)
       return -2;
